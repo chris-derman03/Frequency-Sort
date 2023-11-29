@@ -205,7 +205,7 @@ plt.tick_params(axis='both', colors='white')
     
 
 
-Looks like we way outperform selectionSort, which is to be expected. We actually get pretty close to mergesort in the long run. But when we take a closer look, it seems to be way faster! Mergesort always stays below 1 second, which frequency sort explodes out of nowhere. This is even with a constant range.
+Looks like we way outperform selectionSort, which is to be expected. We actually get pretty close to mergesort in the long run. But when we take a closer look, mergeSort seems to be way faster! Mergesort always stays below 1 second, which frequency sort explodes out of nowhere. This is even with a constant range.
 
 ## Summary
 Either mergesort/quicksort/etc. are simply better, or frequency sort needs some optimizations.
