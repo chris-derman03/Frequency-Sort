@@ -35,7 +35,7 @@ def freq_sort(arr, mi, ma):
     
     # O(r + n)
     # It looks like there is nesting (so it should be O(rn)), but the inner loop will ALWAYS
-    # run n times. So the time complexity of this part matter only on which of r or n is larger.
+    # run n times. So the time complexity of this part matters only on which of r or n is larger.
     for v in freqs.keys():
         
         # O(frequency of this element)
