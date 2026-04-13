@@ -182,7 +182,7 @@ plt.tick_params(axis='both', colors='white')
 
 
     
-![png](output_9_0.png)
+![png](Time_v_Input1.png)
     
 
 
@@ -196,14 +196,14 @@ plt.xlabel('N', color='white')
 plt.ylabel('Runtime (sec)', color='white')
 plt.legend()
 
-plt.ylim(0, 10)
+plt.ylim(0, 0.25)
 
 plt.tick_params(axis='both', colors='white')
 ```
 
 
     
-![png](output_10_0.png)
+![png](Time_v_Input2.png)
     
 
 
