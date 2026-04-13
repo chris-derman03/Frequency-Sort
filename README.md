@@ -182,7 +182,7 @@ plt.tick_params(axis='both', colors='white')
 
 
     
-![png](Time_v_Input1.png)
+![png](Time_v_Input_1.png)
     
 
 
@@ -203,7 +203,7 @@ plt.tick_params(axis='both', colors='white')
 
 
     
-![png](Time_v_Input2.png)
+![png](Time_v_Input_2.png)
     
 
 
