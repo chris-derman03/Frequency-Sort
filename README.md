@@ -13,7 +13,7 @@ This algorithm (which currently I have only implemented for integers) produces a
 2) It then iterates through the input, and for each element it sees, it increments the value corresponding to that key.
 3) Once this is over, it "decompresses" that dictionary into an output list.\
 \
-Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said if n is miniscule. Say our input is [1,3,2,k], where k is a massive number. Sorting this tiny almost-sorted array would require creating and iterating about a dictionary with k keys.\
+Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n)). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said if n is miniscule. Say our input is [1,3,2,k], where k is a massive number. Sorting this tiny almost-sorted array would require creating and iterating about a dictionary with k keys.\
 Therefore we note that space complexity can be problematic if our input has a large range.
 
 
