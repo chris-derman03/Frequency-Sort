@@ -19,12 +19,12 @@ Therefore we note that space complexity can be problematic if our input has a la
 
 ```python
 # Frequency Sort
-def freq_sort(arr, mim, max):
+def freq_sort(arr, minimum, maximum):
     
     freqs = {}
     
     # O(r)
-    for v in range(min, max + 1):
+    for v in range(minimum, maximum + 1):
         freqs[v] = 0
         
     # O(n)
@@ -52,48 +52,51 @@ def freq_sort(arr, mim, max):
 ```python
 # Benchmarks
 
-def mergeSort(alist):
-    if len(alist)>1:
-        mid = len(alist)//2
-        lefthalf = alist[:mid]
-        righthalf = alist[mid:]
+def mergeSort(arr):
 
-        mergeSort(lefthalf)
-        mergeSort(righthalf)
-        i=0
-        j=0
-        k=0
-        while i < len(lefthalf) and j < len(righthalf):
-            if lefthalf[i] < righthalf[j]:               
-                alist[k]=lefthalf[i]
-                i=i+1
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        leftHalf = arr[:mid]
+        rightHalf = arr[mid:]
+
+        mergeSort(leftHalf)
+        mergeSort(rightHalf)
+
+        i = 0
+        j = 0
+        k = 0
+        while i < len(leftHalf) and j < len(rightHalf):
+            if leftHalf[i] < rightHalf[j]:               
+                arr[k] = leftHalf[i]
+                i += 1
             else:
-                alist[k]=righthalf[j]          
-                j=j+1
-            k=k+1
+                arr[k] = rightHalf[j]          
+                j += 1
+            k += 1
 
+        while i < len(leftHalf):
+            arr[k] = leftHalf[i]         
+            i += 1
+            k += 1
 
-        while i < len(lefthalf):
-            alist[k]=lefthalf[i]         
-            i=i+1
-            k=k+1
-
-        while j < len(righthalf):
-            alist[k]=righthalf[j]
-            j=j+1
-            k=k+1
+        while j < len(rightHalf):
+            arr[k] = rightHalf[j]
+            j += 1
+            k += 1
             
-def selectionSort(array, size):
+def selectionSort(arr, size):
     
-    for ind in range(size):
-        min_index = ind
+    for idx in range(size):
+        min_index = idx
     
-        for j in range(ind + 1, size):
+        for j in range(idx + 1, size):
+
             # select the minimum element in every iteration
-            if array[j] < array[min_index]:
+            if arr[j] < arr[min_index]:
                 min_index = j
+
          # swapping the elements to sort the array
-        (array[ind], array[min_index]) = (array[min_index], array[ind])
+        (arr[idx], arr[min_index]) = (arr[min_index], arr[idx])
 ```
 
 
@@ -106,6 +109,7 @@ def rand_list(N):
         arr += [random.randint(0,100)]
 
     return np.array(arr)
+
 rand_list(10000)
 ```
 
@@ -118,39 +122,42 @@ rand_list(10000)
 
 
 ```python
-# We will get benchmarks for certain sorting algorithms based on increasing values of N
-sizes = list(range(10,100,10)) + list(range(100,1001,100)) + \
+# Our benchmark is the time taken to complete the sorting. We will use values of N ranging from 10 to 100,000.
+
+sizes = list(range(10,100,10)) + list(range(100,1000,100)) + \
                             list(range(1000,10000,1000)) + \
                             list(range(10000,100000,10000)) + [100000]
 
-runtimes1 = np.array([])
-runtimes2 = np.array([])
-runtimes3 = np.array([])
+runtimes1 = np.array([]) # Freqeuncy Sort
+runtimes2 = np.array([]) # Merge Sort
+runtimes3 = np.array([]) # Selection Sort
+
 for s in sizes:
     arr = rand_list(s)
 
     # Frequency Sort
-    mi, ma = min(arr),max(arr)
     start = time.time()
-    sorted_arr = freq_sort(arr,mi,ma)
-    runtimes1 = np.append(runtimes1, time.time()-start)
+    sorted_arr = freq_sort(arr, min(arr), max(arr))
+    runtime = time.time() - start
+    runtimes1 = np.append(runtimes1, runtime)
     
     # Merge Sort
-    ar1 = list(arr.copy())
+    arr2 = list(arr.copy())
     start = time.time()
-    mergeSort(ar1)
-    sorted_arr2 = ar1
-    runtimes2 = np.append(runtimes2, time.time()-start)
+    mergeSort(arr2)
+    runtime = time.time() - start
+    runtimes2 = np.append(runtimes2, runtime)
+    sorted_arr2 = arr2
     
     # Selection Sort
-    ar2 = list(arr.copy())
-    si = len(ar2)
+    arr3 = list(arr.copy())
     start = time.time()
-    selectionSort(ar2, si)
-    sorted_arr3 = ar2
-    runtimes3 = np.append(runtimes3, time.time()-start)
+    selectionSort(arr3, len(arr3))
+    runtime = time.time() - start
+    runtimes3 = np.append(runtimes3, runtime)
+    sorted_arr3 = arr3
     
-    # If the arrays are not equivalent, then one of the sorting algoritms is wrong
+    # Verify each algorithm produces the same output
     if (np.sum(np.array(sorted_arr, dtype=np.uint8) == np.array(sorted_arr2, dtype=np.uint8)) != s):
         print("ERROR between first and second sort")
         break
@@ -162,7 +169,7 @@ for s in sizes:
         break
 ```
 
-## Let's plot the runtimes against different choice of N
+## Let's plot the runtimes against different choices of N
 Note that the axes are in white, so please switch to dark mode if you would like to see them.
 
 
