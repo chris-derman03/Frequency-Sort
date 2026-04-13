@@ -9,11 +9,11 @@ Note that this algorithm was just a random idea that I got. Only to my knowledge
 
 ## Frequency Sort
 This algorithm (which currently I have only implemented for integers) produces a sorted output by counting the frequencies of each element in an unsorted list.
-1) It begins by taking the range of the data (max - min) and constructing a Python dictionary with keys from min to max. All values are initially 0.
-2) It then iterates through the input, and for each element it sees, it increments the value corresponding to that key.
-3) Once this is over, it "decompresses" that dictionary into an output list.\
+1) It begins by taking the range of the data (max - min) and constructing a Python list with an element for each number in the range. All values are initially 0.
+2) It then iterates through the input, and for each value it sees, it increments the list in step 1 corresponding to that value.
+3) Once this is over, it "decompresses" that list into a sorted output list.\
 \
-Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said if n is miniscule. Say our input is [1,3,2,k], where k is a massive number. Sorting this tiny almost-sorted array would require creating and iterating about a dictionary with k keys.\
+Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said if n is miniscule. Say our input is [1,3,2,k], where k is a massive number. Sorting this tiny almost-sorted array would require creating and iterating about a list with k elements.\
 Therefore we note that space complexity can be problematic if our input has a large range.
 
 
@@ -21,28 +21,23 @@ Therefore we note that space complexity can be problematic if our input has a la
 # Frequency Sort
 def freq_sort(arr, minimum, maximum):
     
-    freqs = {}
-    
-    # O(r)
-    for v in range(minimum, maximum + 1):
-        freqs[v] = 0
+    freqs = [0] * (maximum - minimum + 1)
         
     # O(n)
     for v in arr:
-        freqs[v] += 1
-        
-    out = np.array([])
+        freqs[v - minimum] += 1
+
+    out = []
     
     # O(r + n)
     # It looks like there is nesting (so it should be O(r * n)), but the inner loop will ALWAYS
     # run n times overall, so the time complexity of this part is always the larger of r or n.
-    for v in freqs.keys():
+    for i, count in enumerate(freqs):
         
         # O(frequency of v)
         # In total, this only runs n times
-        for _ in range(freqs[v]):
-            out = np.append(out, v)
-    
+        out.extend([i + minimum] * count)
+        
     return out
 ```
 
@@ -212,7 +207,7 @@ plt.tick_params(axis='both', colors='white')
     
 
 
-Looks like we way outperform selectionSort, which is to be expected. We actually get pretty close to mergesort in the long run. But when we take a closer look, mergeSort seems to be way faster! Mergesort always stays below 1 second, while frequency sort explodes out of nowhere. This is even with a constant range.
+Looks like we way outperform selectionSort, which is to be expected. We also outperform MergeSort, which is also expected due to the linear time complexity we predicted. 
 
 ## Summary
-Either mergesort/quicksort/etc. are simply better, or frequency sort needs some optimizations.
+This algorithm beats some of our fastest algorithms like MergeSort and QuickSort. However, the caveat is space complexity. If our input to be sorted contains a potentially massive range of values, this algorithm may not be the best choice, and might even extend past a machine's memory capabilities. For very large arrays with a small range, Frequency Sort is the better choice. For arrays with large range values, traditional fast sorting algorithms are better.
