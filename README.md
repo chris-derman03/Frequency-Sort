@@ -210,4 +210,4 @@ plt.tick_params(axis='both', colors='white')
 Looks like we way outperform selectionSort, which is to be expected. We also outperform MergeSort, which is also expected due to the linear time complexity we predicted. 
 
 ## Summary
-This algorithm beats some of our fastest algorithms like MergeSort and QuickSort. However, the caveat is space complexity. If our input to be sorted contains a potentially massive range of values, this algorithm may not be the best choice, and might even extend past a machine's memory capabilities. For very large arrays with a small range, Frequency Sort is the better choice. For arrays with large range values, traditional fast sorting algorithms are better.
+For this optimal case of an integer input list with values ranging from 0 to 100, this algorithm beats some of our fastest algorithms like MergeSort and QuickSort. However, the caveat is space complexity. If our input to be sorted contains a potentially massive range, this algorithm may not be the best choice, and might even extend past a machine's memory capabilities. Therefore, we find that Frequency Sort is a powerful tool for large integer arrays with small data ranges.
