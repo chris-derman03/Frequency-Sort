@@ -34,12 +34,12 @@ def freq_sort(arr, mim, max):
     out = np.array([])
     
     # O(r + n)
-    # It looks like there is nesting (so it should be O(rn)), but the inner loop will ALWAYS
-    # run n times. So the time complexity of this part matters only on which of r or n is larger.
+    # It looks like there is nesting (so it should be O(r * n), but the inner loop will ALWAYS
+    # run n times overall, so the time complexity of this part is always the larger of r or n.
     for v in freqs.keys():
         
-        # O(frequency of this element)
-        # In total this only runs n times
+        # O(frequency of v)
+        # In total, this only runs n times
         for _ in range(freqs[v]):
             out = np.append(out, v)
     
