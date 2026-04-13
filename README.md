@@ -5,26 +5,26 @@ import time
 import matplotlib.pyplot as plt
 ```
 
-Note that this algorithm was just a random idea that I got. Only to my knowledge this algorithm is not yet implemented. Perhaps it is, but I just wanted to have fun writing an algorithm from the memory of an idea I got, and testing whether it could outperform any existing algorithms.
+Note that this algorithm was just a random idea that I got. Only to my knowledge this algorithm is not yet implemented by our community. Perhaps it is, but I just wanted to have fun writing an algorithm from the memory of an idea I got, and testing whether it could outperform any existing algorithms.
 
 ## Frequency Sort
-This algorithm (which currently only works with integers) counts the frequencies of each element in an unsorted list.
+This algorithm (which currently I have only implemented for integers) produces a sorted output by counting the frequencies of each element in an unsorted list.
 1) It begins by taking the range of the data (max - min) and constructing a Python dictionary with keys from min to max. All values are initially 0.
 2) It then iterates through the input, and for each element it sees, it increments the value corresponding to that key.
 3) Once this is over, it "decompresses" that dictionary into an output list.\
 \
-Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said for if n is miniscule. Say our input is [1,3,2,1000], this algorithm would need a dictionary with 1000 keys.\
-Note that space complexity can also really bad. We will need a dictionary with r keys (where r is range). So if the data have a very large range, then this algorithm will take up a large amount of memory.
+Steps 1 and 3 are O(r), where r is the range of the data. Step 2 is O(n). These happen independently, so the overall runtime is O(r + n). If the range is miniscule, then we can say that this algorithm sorts in linear time. The same cannot be said if n is miniscule. Say our input is [1,3,2,k], where k is a massive number. Sorting this tiny almost-sorted array would require creating and iterating about a dictionary with k keys.\
+Therefore we note that space complexity can be problematic if our input has a large range.
 
 
 ```python
 # Frequency Sort
-def freq_sort(arr, mi, ma):
+def freq_sort(arr, mim, max):
     
     freqs = {}
     
     # O(r)
-    for v in range(mi, ma+1):
+    for v in range(min, max + 1):
         freqs[v] = 0
         
     # O(n)
